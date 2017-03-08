@@ -8,18 +8,33 @@
 
 import UIKit
 
-class ReposTableViewController: UITableViewController {
+class ReposTableViewController: UITableViewController, ReposDataStoreDelegate {
     
     var store = ReposDataStore.sharedInstance
+    var repos = [GithubRepository]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        repos = store.[repositories]
         self.tableView.accessibilityLabel = "tableView"
         
     }
 
     // MARK: - Table view data source
- 
-
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return store.repositories.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "repoCell", for: indexPath)
+        cell.textLabel?.text = store.repositories[indexPath.row].fullName
+        return cell
+    }
+    
+    // MARK: - Repos Data Store Delegate
+    func newRepoArrived(atIndex: Int) {
+        repos.append(store.repositories[atIndex])
+    }
+    
 }
