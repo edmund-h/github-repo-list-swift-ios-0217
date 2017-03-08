@@ -8,16 +8,18 @@
 
 import UIKit
 
-class ReposTableViewController: UITableViewController, ReposDataStoreDelegate {
+class ReposTableViewController: UITableViewController{ //, ReposDataStoreDelegate
     
     var store = ReposDataStore.sharedInstance
-    var repos = [GithubRepository]
+    var repos: [GithubRepository]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        repos = store.[repositories]
+        repos = store.repositories
         self.tableView.accessibilityLabel = "tableView"
-        
+        GithubAPIClient.getRepositories { (dictionary) in
+            return
+        }
     }
 
     // MARK: - Table view data source

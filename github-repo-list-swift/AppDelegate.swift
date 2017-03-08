@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import OHTTPStubs
+import OHHTTPStubs
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
